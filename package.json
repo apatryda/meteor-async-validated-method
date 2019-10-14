@@ -1,0 +1,34 @@
+{
+  "name": "meteor-async-validated-method",
+  "version": "0.1.0",
+  "description": "Promise wrapper for Meteor's mdg:validated-method package",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "node_modules/.bin/tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/apatryda/meteor-async-validated-method.git"
+  },
+  "keywords": [
+    "meteor",
+    "validated",
+    "method",
+    "promise"
+  ],
+  "author": "Artur Nerkowski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apatryda/meteor-async-validated-method/issues"
+  },
+  "homepage": "https://github.com/apatryda/meteor-async-validated-method#readme",
+  "devDependencies": {
+    "@types/meteor": "^1.4.33",
+    "typings": "^2.1.1"
+  },
+  "peerDependencies": {
+    "@types/meteor": "^1.4.33"
+  }
+}

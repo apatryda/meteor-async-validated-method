@@ -1,0 +1,6 @@
+{
+  "name": "meteor-async-validated-method",
+  "dependencies": {
+    "meteor/mdg:validated-method": "github:apatryda/meteor-validated-method-typings"
+  }
+}
