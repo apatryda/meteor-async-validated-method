@@ -1,4 +1,6 @@
+dist/*
+!dist/*.d.ts
 node_modules/
-dist/
 typings/
 .vscode
+.versions
