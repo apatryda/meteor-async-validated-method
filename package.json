@@ -1,6 +1,6 @@
 {
   "name": "meteor-async-validated-method",
-  "version": "0.1.0",
+  "version": "1.2.1",
   "description": "Promise wrapper for Meteor's mdg:validated-method package",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

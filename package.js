@@ -1,7 +1,7 @@
 Package.describe({
   name: 'apatryda:async-validated-method',
   summary: 'A promise wrapper over mdg:validated-method package',
-  version: '1.2.0',
+  version: '1.2.1',
   documentation: 'README.md',
 });
 

@@ -12,13 +12,9 @@ import {
 import { Meteor } from 'meteor/meteor';
 
 export class ValidatedMethod<
-  Result extends ValidatedMethodResult = undefined,
+  Result extends ValidatedMethodResult = void,
   Args extends ValidatedMethodArgs = undefined
 > extends RawValidatedMethod<Result, Args> {
-  constructor(options: ValidatedMethodOptions<Result, Args>) {
-    super(options);
-  }
-
   callAsync(args?: Args) {
     return new Promise<Result>((resolve, reject) => {
       const callback: ValidatedMethodCallback<Result> = Meteor.bindEnvironment((error, result) => {
