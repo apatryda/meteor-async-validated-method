@@ -11,28 +11,35 @@ import {
 } from 'meteor/mdg:validated-method';
 import { Meteor } from 'meteor/meteor';
 
-export class ValidatedMethod<
+export type ValidatedMethodCallAsyncFn<
+  Args extends ValidatedMethodArgs = undefined,
   Result extends ValidatedMethodResult = void,
-  Args extends ValidatedMethodArgs = undefined
-> extends RawValidatedMethod<Result, Args> {
-  callAsync(args?: Args) {
-    return new Promise<Result>((resolve, reject) => {
-      const callback: ValidatedMethodCallback<Result> = Meteor.bindEnvironment((error, result) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        resolve(result);
-      });
+> = (this: RawValidatedMethod<Args, Result>, args?: Args) => Promise<Result>;
 
-      if (args) {
-        this.call(args, callback);
+const callAsync: ValidatedMethodCallAsyncFn<any, any> =  Meteor.bindEnvironment(function (args) {
+  return new Promise(Meteor.bindEnvironment((resolve, reject) => {
+    const callback: ValidatedMethodCallback<any> = Meteor.bindEnvironment((error, result) => {
+      if (error) {
+        reject(error);
         return;
       }
-
-      this.call(callback);
+      resolve(result);
     });
-  }
+
+    if (args) {
+      this.call(args, callback);
+      return;
+    }
+
+    this.call(callback);
+  }));
+});
+
+export class ValidatedMethod<
+  Args extends ValidatedMethodArgs = undefined,
+  Result extends ValidatedMethodResult = void,
+> extends RawValidatedMethod<Args, Result> {
+  callAsync: ValidatedMethodCallAsyncFn<Args, Result> = callAsync;
 }
 
 export {
