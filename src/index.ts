@@ -16,7 +16,12 @@ export type ValidatedMethodCallAsyncFn<
   Result extends ValidatedMethodResult = void,
 > = (this: RawValidatedMethod<Args, Result>, args?: Args) => Promise<Result>;
 
-const callAsync: ValidatedMethodCallAsyncFn<any, any> =  Meteor.bindEnvironment(function (args) {
+export type ValidatedMethodCallAsyncFnWrapper<
+  Args extends ValidatedMethodArgs = undefined,
+  Result extends ValidatedMethodResult = void,
+> = (self: RawValidatedMethod<Args, Result>, args?: Args) => Promise<Result>;
+
+const callAsync: ValidatedMethodCallAsyncFnWrapper<any, any> =  Meteor.bindEnvironment((self, args) => {
   return new Promise(Meteor.bindEnvironment((resolve, reject) => {
     const callback: ValidatedMethodCallback<any> = Meteor.bindEnvironment((error, result) => {
       if (error) {
@@ -27,11 +32,11 @@ const callAsync: ValidatedMethodCallAsyncFn<any, any> =  Meteor.bindEnvironment(
     });
 
     if (args) {
-      this.call(args, callback);
+      self.call(args, callback);
       return;
     }
 
-    this.call(callback);
+    self.call(callback);
   }));
 });
 
@@ -39,7 +44,7 @@ export class ValidatedMethod<
   Args extends ValidatedMethodArgs = undefined,
   Result extends ValidatedMethodResult = void,
 > extends RawValidatedMethod<Args, Result> {
-  callAsync: ValidatedMethodCallAsyncFn<Args, Result> = callAsync;
+  callAsync: ValidatedMethodCallAsyncFn<Args, Result> = args => callAsync(this, args);
 }
 
 export {
