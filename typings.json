@@ -1,6 +1,6 @@
 {
   "name": "meteor/apatryda:async-validated-method",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "main": "dist/index.d.ts",
   "homepage": "https://atmospherejs.com/apatryda/async-validated-method",
   "dependencies": {
